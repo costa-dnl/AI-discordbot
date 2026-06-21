@@ -1,0 +1,52 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Usuario {
+  id            Int      @id @default(autoincrement())
+  discordId     String   @unique
+  username      String
+  saldo         Int      @default(0)
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
+
+  transacoes    Transacao[]
+  apostas       Aposta[]
+  jogosCriados  Jogo[]   @relation("JogoCriador")
+}
+
+model Transacao {
+  id          Int      @id @default(autoincrement())
+  usuarioId   Int
+  usuario     Usuario  @relation(fields: [usuarioId], references: [id])
+  valor       Int
+  tipo        String
+  referencia  String?
+  created_at  DateTime @default(now())
+}
+
+model Aposta {
+  id          Int      @id @default(autoincrement())
+  usuarioId   Int
+  usuario     Usuario  @relation(fields: [usuarioId], references: [id])
+  jogo        String
+  valor       Int
+  resultado   String
+  detalhes    String?
+  created_at  DateTime @default(now())
+}
+
+model Jogo {
+  id          Int      @id @default(autoincrement())
+  nome        String
+  tipo        String
+  ativo       Boolean  @default(true)
+  criadorId   Int
+  criador     Usuario  @relation("JogoCriador", fields: [criadorId], references: [id])
+  configuracoes String?
+  created_at  DateTime @default(now())
+}

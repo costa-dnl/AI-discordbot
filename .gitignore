@@ -3,3 +3,6 @@ node_modules
 *.log
 changelog
 node_modules/.cache
+
+/src/generated/prisma
+dev.db
