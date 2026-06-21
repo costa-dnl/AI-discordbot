@@ -1,8 +1,9 @@
 export const data = {
   name: 'ping',
-  description: 'Responde com Pong!',
+  description: 'Responde com Pong e mostra a latência.',
 };
 
 export async function execute(message) {
-  await message.reply('Pong!');
+  const ping = Date.now() - message.createdTimestamp;
+  await message.reply(`Pong! ${ping}ms`);
 }
