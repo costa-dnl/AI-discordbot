@@ -3,6 +3,6 @@ export const data = {
   description: 'Responde com Pong!',
 };
 
-export async function execute(interaction) {
-  await interaction.reply('Pong!');
+export async function execute(message) {
+  await message.reply('Pong!');
 }

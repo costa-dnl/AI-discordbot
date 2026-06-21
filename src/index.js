@@ -1,4 +1,4 @@
-import { Client, Collection, GatewayIntentBits, Events, REST, Routes } from 'discord.js';
+import { Client, Collection, GatewayIntentBits, Events } from 'discord.js';
 import fs from 'fs';
 import path from 'path';
 import { config } from 'dotenv';
@@ -36,18 +36,23 @@ client.once(Events.ClientReady, (readyClient) => {
   }
 });
 
-client.on(Events.InteractionCreate, async (interaction) => {
-  if (!interaction.isChatInputCommand()) return;
-  const command = client.commands.get(interaction.commandName);
-  if (!command) {
-    await interaction.reply({ content: 'Comando não encontrado.', ephemeral: true });
-    return;
-  }
+client.on(Events.MessageCreate, async (message) => {
+  if (message.author.bot) return;
+  if (!message.content.startsWith('l')) return;
+
+  const args = message.content.slice('l'.length).trim().split(/ +/);
+  const commandName = args.shift()?.toLowerCase();
+
+  if (!commandName) return;
+
+  const command = client.commands.get(commandName);
+  if (!command) return;
+
   try {
-    await command.execute(interaction);
+    await command.execute(message, args);
   } catch (error) {
     console.error(error);
-    await interaction.reply({ content: 'Erro ao executar comando.', ephemeral: true });
+    await message.reply('Erro ao executar comando.');
   }
 });
 
