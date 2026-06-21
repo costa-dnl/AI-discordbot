@@ -1,5 +1,11 @@
 # Lyra — Guia Principal
 
+## Regras do Operador
+1. Commit apenas quando necessário (não spammar commits)
+2. Sempre reiniciar o bot após mudanças e verificar se está saudável
+3. Reportar erros em <#1518156757275381922> com 🔴
+4. Reportar status OK / console.log relevante em <#1518156757275381922> com 🟢
+
 ## Estrutura
 ```
 C:\devs\AI-discordbot\
@@ -19,7 +25,7 @@ C:\devs\AI-discordbot\
 
 ## Comandos
 - Prefixo: `l`
-- Exemplos: `lping`, `lola`, `lajuda`
+- Exemplos: `lping`, `lajuda`, `lsaldo`
 
 ## Convenções
 - NÃO use slash commands; tudo via prefixo `l`

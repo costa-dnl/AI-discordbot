@@ -6,3 +6,4 @@ node_modules/.cache
 
 /src/generated/prisma
 dev.db
+dist

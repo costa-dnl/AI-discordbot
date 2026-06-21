@@ -2,6 +2,7 @@ import { Client, Collection, GatewayIntentBits, Events } from 'discord.js';
 import fs from 'fs';
 import path from 'path';
 import { config } from 'dotenv';
+import { prisma } from './services/database.js';
 
 config();
 
@@ -22,7 +23,7 @@ client.commands = new Collection();
 
 const commandsPath = path.join(process.cwd(), 'src', 'commands');
 for (const file of fs.readdirSync(commandsPath)) {
-  if (!file.match(/\.js$/)) continue;
+  if (!file.match(/\.ts$/)) continue;
   const cmd = await import(`file://${path.join(commandsPath, file)}`);
   if (cmd.data && cmd.execute) {
     client.commands.set(cmd.data.name, cmd);
